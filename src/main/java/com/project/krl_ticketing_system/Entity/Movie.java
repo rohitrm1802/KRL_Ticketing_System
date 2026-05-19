@@ -1,9 +1,6 @@
 package com.project.krl_ticketing_system.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +18,9 @@ public class Movie {
     private String description;
 
     private String runtime;
+
+    @ManyToOne
+    @JoinColumn(name = "theater_id")
+    private Theater theater;
 
 }

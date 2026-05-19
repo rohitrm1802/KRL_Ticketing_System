@@ -15,13 +15,13 @@ public class MovieController {
     private MovieService movieService;
 
     @PostMapping("/addMovie")
-    public Movie addMovie(Movie movie)
+    public Movie addMovie(@RequestBody Movie movie)
     {
         return movieService.addMovie(movie);
     }
 
     @GetMapping("/getMovieId/{movieId}")
-    public Movie getMovieById(Long movieId)
+    public Movie getMovieById(@PathVariable Long movieId)
     {
         return movieService.getMovie(movieId);
     }
@@ -33,7 +33,7 @@ public class MovieController {
     }
 
     @DeleteMapping("/deleteMovie/{movieId}")
-    public String deleteMovie(Long movieId)
+    public String deleteMovie(@PathVariable Long movieId)
     {
         return movieService.deleteMovie(movieId);
     }
