@@ -15,4 +15,10 @@ public class Show {
     private Long id;
 
     private String show_time;
+
+    @ManyToOne
+    private Movie movie;
+
+    @ManyToOne
+    private Theater theater;
 }

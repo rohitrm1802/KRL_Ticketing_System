@@ -13,9 +13,11 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String movie_name;
 
     private String description;
+
+    private String language;
 
     private String runtime;
 
