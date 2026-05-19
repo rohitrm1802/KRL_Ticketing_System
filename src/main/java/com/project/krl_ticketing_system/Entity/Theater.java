@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Theater {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     public String tname;
     public String address;
