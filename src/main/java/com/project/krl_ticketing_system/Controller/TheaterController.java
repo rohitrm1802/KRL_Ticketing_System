@@ -11,37 +11,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/theater")
+@RequestMapping("/theater")
 @AllArgsConstructor
 public class TheaterController {
-    private  final TheaterService theaterService;
+
+    private final TheaterService theaterService;
 
     @PostMapping("/addTheater")
-    public ResponseEntity<?> add(@RequestBody Theater theater)
+    public ResponseEntity<?> add(@RequestBody Theater theater,@PathVariable Long locationId)
     {
-        theaterService.addTheater(theater);
+        theaterService.addTheater(theater,locationId);
         return ResponseEntity.ok("Theater Sucessfully Added");
     }
+
     @GetMapping("/getTheaterById/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
 
-        Theater theater = theaterService.getTheaterById(id);
+        List<Theater> theater = theaterService.getTheaterByLocationId(id);
+
         return ResponseEntity.ok(theater);
-    }
-
-    // Get All Theaters
-    @GetMapping("/getAllTheater")
-    public ResponseEntity<?> getAll() {
-
-        List<Theater> theaters = theaterService.getAllTheater();
-        return ResponseEntity.ok(theaters);
     }
 
     // Delete Theater
     @DeleteMapping("/deleteTheater/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long locationId, @PathVariable Long theaterId) {
 
-        String message = theaterService.deleteTheater(id);
+        String message = theaterService.deleteTheaterByLocationId(locationId,theaterId);
 
         return ResponseEntity.ok(message);
     }

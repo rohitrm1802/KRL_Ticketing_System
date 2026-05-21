@@ -38,9 +38,7 @@ public class MovieServiceImpl implements MovieService
         Theater theater = theaterRepository.findById(theaterId)
                 .orElseThrow(()-> new RuntimeException("Theater Not Found"));
 
-        List<Movie> movies = theater.getMovies();
-
-        return movies;
+        return theater.getMovies();
     }
 
     @Override

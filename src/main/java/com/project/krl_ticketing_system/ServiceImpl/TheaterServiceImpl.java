@@ -1,6 +1,8 @@
 package com.project.krl_ticketing_system.ServiceImpl;
 
+import com.project.krl_ticketing_system.Entity.Location;
 import com.project.krl_ticketing_system.Entity.Theater;
+import com.project.krl_ticketing_system.Repository.LocationRepository;
 import com.project.krl_ticketing_system.Repository.TheaterRepository;
 import com.project.krl_ticketing_system.Service.TheaterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +16,42 @@ public class TheaterServiceImpl implements TheaterService {
     @Autowired
      private  TheaterRepository theaterRepository;
 
+    @Autowired
+    private LocationRepository locationRepository;
+
     @Override
-    public Theater addTheater(Theater theater) {
+    public Theater addTheater(Theater theater,Long locationId)
+    {
+        Location location = locationRepository.findById(locationId)
+                .orElseThrow(()-> new RuntimeException("Location Not Found"));
+
+        theater.setLocation(location);
+
         return theaterRepository.save(theater) ;
     }
 
     @Override
-    public Theater getTheaterById(Long id) {
-        return theaterRepository.findById(id).orElseThrow(()->new RuntimeException("Theater Id Not Found "));
+    public List<Theater> getTheaterByLocationId(Long locationId)
+    {
+        Location location = locationRepository.findById(locationId)
+                .orElseThrow(()-> new RuntimeException("Location Not Found"));
+
+        return location.getTheater();
     }
 
     @Override
-    public List<Theater> getAllTheater() {
-        return theaterRepository.findAll();
-    }
+    public String deleteTheaterByLocationId(Long locationId,Long theaterId)
+    {
+        Location location = locationRepository.findById(locationId)
+                .orElseThrow(()-> new RuntimeException("Location Not Found"));
 
-    @Override
-    public String deleteTheater(Long id) {
-        theaterRepository.deleteById(id);
-        return "Theater Deleted Succesfully";
+        theaterRepository.findById(theaterId)
+                        .orElseThrow(()-> new RuntimeException("Theater Not Found"));
+
+        location.getTheater().remove(theaterId);
+
+        return "Theater Successfully Deleted";
+
+
     }
 }

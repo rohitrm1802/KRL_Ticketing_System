@@ -57,9 +57,7 @@ public class ShowServiceImpl implements ShowService
         Theater theater = theaterRepository.findById(theaterId)
                 .orElseThrow(()-> new RuntimeException("Theater Id Not Found"));
 
-        List<Show> shows = theater.getShows();
-
-        return shows;
+        return theater.getShows();
     }
 
     @Override

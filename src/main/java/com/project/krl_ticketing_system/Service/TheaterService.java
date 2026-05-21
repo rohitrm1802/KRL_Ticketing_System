@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface TheaterService {
 
-    public Theater addTheater(Theater theater);
-    public Theater getTheaterById(Long id);
-    List<Theater> getAllTheater();
-    public String deleteTheater(Long id);
+    public Theater addTheater(Theater theater,Long locationId);
+
+    public List<Theater> getTheaterByLocationId(Long id);
+
+    public String deleteTheaterByLocationId(Long locationId,Long theaterId);
 }

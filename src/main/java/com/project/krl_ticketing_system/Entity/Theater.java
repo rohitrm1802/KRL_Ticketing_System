@@ -19,4 +19,8 @@ public class Theater {
 
     @OneToMany(mappedBy = "theater")
     private List<Movie> movies;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 }
