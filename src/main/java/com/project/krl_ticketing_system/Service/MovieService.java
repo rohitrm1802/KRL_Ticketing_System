@@ -6,11 +6,9 @@ import java.util.List;
 
 public interface MovieService {
 
-    public Movie addMovie(Movie movie);
+    public Movie addMovie(Movie movie, Long theaterId);
 
-    public Movie getMovie(Long movieId);
+    public List<Movie> getMovieByTheater(Long theaterId);
 
-    public List<Movie> getAllMovies();
-
-    public String deleteMovie(Long movieId);
+    public String deleteMovieByTheater(Long theaterId,Long movieId);
 }

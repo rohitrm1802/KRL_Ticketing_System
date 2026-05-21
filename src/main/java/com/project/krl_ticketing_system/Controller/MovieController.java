@@ -14,27 +14,21 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    @PostMapping("/addMovie")
-    public Movie addMovie(@RequestBody Movie movie)
+    @PostMapping("/addMovie/{theaterId}")
+    public Movie addMovie(@RequestBody Movie movie,@PathVariable Long theaterId)
     {
-        return movieService.addMovie(movie);
+        return movieService.addMovie(movie,theaterId);
     }
 
     @GetMapping("/getMovieId/{movieId}")
-    public Movie getMovieById(@PathVariable Long movieId)
+    public List<Movie> getMovieById(@PathVariable Long movieId)
     {
-        return movieService.getMovie(movieId);
-    }
-
-    @GetMapping("/getAllMovies")
-    public List<Movie> getAllMovies()
-    {
-        return movieService.getAllMovies();
+        return movieService.getMovieByTheater(movieId);
     }
 
     @DeleteMapping("/deleteMovie/{movieId}")
-    public String deleteMovie(@PathVariable Long movieId)
+    public String deleteMovie(@PathVariable Long theaterId,@PathVariable Long movieId)
     {
-        return movieService.deleteMovie(movieId);
+        return movieService.deleteMovieByTheater(theaterId,movieId);
     }
 }
