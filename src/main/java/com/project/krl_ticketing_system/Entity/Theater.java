@@ -23,4 +23,7 @@ public class Theater {
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
+
+    @OneToMany(mappedBy = "theater")
+    private List<Seat> seats;
 }

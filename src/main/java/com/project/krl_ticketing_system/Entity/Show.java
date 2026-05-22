@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "shows")
 @Getter
@@ -32,4 +34,7 @@ public class Show {
     @ManyToOne
     @JoinColumn(name = "theater_id")
     private Theater theater;
+
+    @OneToMany(mappedBy = "show")
+    private List<ShowSeat> showSeats;
 }

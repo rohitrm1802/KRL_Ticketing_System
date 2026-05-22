@@ -4,9 +4,11 @@ import com.project.krl_ticketing_system.Entity.Location;
 import com.project.krl_ticketing_system.Repository.LocationRepository;
 import com.project.krl_ticketing_system.Service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class LocationServiceImpl implements LocationService
 {
     @Autowired
