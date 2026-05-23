@@ -5,15 +5,16 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "show_seats")
 public class ShowSeat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean booked;
+    private double price;
 
-    private Double price;
+    private boolean booked;
 
     @ManyToOne
     @JoinColumn(name = "show_id")

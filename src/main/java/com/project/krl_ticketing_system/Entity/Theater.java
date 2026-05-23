@@ -1,5 +1,6 @@
 package com.project.krl_ticketing_system.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name = "theaters")
 public class Theater {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +27,6 @@ public class Theater {
     private Location location;
 
     @OneToMany(mappedBy = "theater")
+    @JsonManagedReference
     private List<Seat> seats;
 }
