@@ -1,5 +1,7 @@
 package com.project.krl_ticketing_system.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,10 +28,10 @@ public class Movie {
 
     @ManyToOne
     @JoinColumn(name = "theater_id")
+    @JsonIgnore
     private Theater theater;
 
     @OneToMany(mappedBy = "movie")
-    @JsonManagedReference
     private List<Show> shows;
 
 }

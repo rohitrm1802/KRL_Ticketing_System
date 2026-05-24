@@ -20,10 +20,10 @@ public class MovieController {
         return movieService.addMovie(movie,theaterId);
     }
 
-    @GetMapping("/getMovieId/{movieId}")
-    public List<Movie> getMovieById(@PathVariable Long movieId)
+    @GetMapping("/getMovieId/{theaterId}")
+    public List<Movie> getMovieByTheater(@PathVariable Long theaterId)
     {
-        return movieService.getMovieByTheater(movieId);
+        return movieService.getMovieByTheater(theaterId);
     }
 
     @DeleteMapping("/deleteMovie/{movieId}")

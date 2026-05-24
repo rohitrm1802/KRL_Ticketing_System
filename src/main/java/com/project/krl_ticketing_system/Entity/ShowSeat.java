@@ -1,5 +1,7 @@
 package com.project.krl_ticketing_system.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,9 +20,11 @@ public class ShowSeat {
 
     @ManyToOne
     @JoinColumn(name = "show_id")
+    @JsonIgnore
     private Show show;
 
     @ManyToOne
     @JoinColumn(name = "seat_id")
+    @JsonIgnore
     private Seat seat;
 }

@@ -1,15 +1,14 @@
 package com.project.krl_ticketing_system.ServiceImpl;
 
-import com.project.krl_ticketing_system.Entity.Movie;
-import com.project.krl_ticketing_system.Entity.Show;
-import com.project.krl_ticketing_system.Entity.Theater;
+import com.project.krl_ticketing_system.Entity.*;
+import com.project.krl_ticketing_system.Enum.SeatType;
 import com.project.krl_ticketing_system.Repository.MovieRepository;
 import com.project.krl_ticketing_system.Repository.ShowRepository;
+import com.project.krl_ticketing_system.Repository.ShowSeatRepository;
 import com.project.krl_ticketing_system.Repository.TheaterRepository;
 import com.project.krl_ticketing_system.Service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -24,18 +23,51 @@ public class ShowServiceImpl implements ShowService
     @Autowired
     private MovieRepository movieRepository;
 
+    @Autowired
+    private ShowSeatRepository showSeatRepository;
+
     @Override
     public Show addShow(Show show,Long theaterId,Long movieId)
     {
         Theater theater = theaterRepository.findById(theaterId)
                         .orElseThrow(()-> new RuntimeException("Theater Id Not Found"));
 
-        show.setTheater(theater);
-
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(()-> new RuntimeException("Movie Id Not Found"));
 
+        show.setTheater(theater);
+
         show.setMovie(movie);
+
+        List<Seat> seats = theater.getSeats();
+
+        Show savedShow = showRepository.save(show);
+
+        for(Seat seat : seats)
+        {
+            ShowSeat showSeat = new ShowSeat();
+
+            showSeat.setSeat(seat);
+
+            showSeat.setShow(show);
+
+            if(seat.getSeatType() == SeatType.PLATINUM)
+            {
+                showSeat.setPrice(show.getPlatinum_price());
+            }
+            else if(seat.getSeatType() == SeatType.GOLD)
+            {
+                showSeat.setPrice(show.getGold_price());
+            }
+            else
+            {
+                showSeat.setPrice(show.getSilver_price());
+            }
+
+            showSeat.setBooked(false);
+
+            showSeatRepository.save(showSeat);
+        }
 
         return showRepository.save(show);
     }
@@ -45,9 +77,7 @@ public class ShowServiceImpl implements ShowService
     {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(()-> new RuntimeException("Show Id Not Found"));
-
         List<Show> shows = movie.getShows();
-
         return shows;
     }
 
@@ -56,7 +86,6 @@ public class ShowServiceImpl implements ShowService
     {
         Theater theater = theaterRepository.findById(theaterId)
                 .orElseThrow(()-> new RuntimeException("Theater Id Not Found"));
-
         return theater.getShows();
     }
 
@@ -65,7 +94,6 @@ public class ShowServiceImpl implements ShowService
     {
         Movie movie = movieRepository.findById(movieId)
                         .orElseThrow(()-> new RuntimeException("Movie Id Not Found"));
-
         movie.setShows(null);
 
         Theater theater = theaterRepository.findById(theaterId)

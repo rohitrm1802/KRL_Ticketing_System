@@ -1,6 +1,8 @@
 package com.project.krl_ticketing_system.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.krl_ticketing_system.Enum.SeatType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -32,7 +34,7 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "theater_id")
-    @JsonBackReference
+    @JsonIgnore
     private Theater theater;
 
 }

@@ -1,6 +1,8 @@
 package com.project.krl_ticketing_system.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,15 +25,20 @@ public class Show {
 
     private int screen_num;
 
-    private double ticket_price;
+    private double platinum_price;
+
+    private double gold_price;
+
+    private double silver_price;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    @JsonBackReference
+    @JsonIgnore
     private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "theater_id")
+    @JsonIgnore
     private Theater theater;
 
 //    @OneToMany(mappedBy = "show")
