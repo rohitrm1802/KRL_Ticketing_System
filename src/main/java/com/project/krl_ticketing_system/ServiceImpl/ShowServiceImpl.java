@@ -2,13 +2,12 @@ package com.project.krl_ticketing_system.ServiceImpl;
 
 import com.project.krl_ticketing_system.Entity.*;
 import com.project.krl_ticketing_system.Enum.SeatType;
-import com.project.krl_ticketing_system.Repository.MovieRepository;
-import com.project.krl_ticketing_system.Repository.ShowRepository;
-import com.project.krl_ticketing_system.Repository.ShowSeatRepository;
-import com.project.krl_ticketing_system.Repository.TheaterRepository;
+import com.project.krl_ticketing_system.Repository.*;
 import com.project.krl_ticketing_system.Service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -77,8 +76,8 @@ public class ShowServiceImpl implements ShowService
     {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(()-> new RuntimeException("Show Id Not Found"));
-        List<Show> shows = movie.getShows();
-        return shows;
+
+        return movie.getShows();
     }
 
     @Override
@@ -86,20 +85,38 @@ public class ShowServiceImpl implements ShowService
     {
         Theater theater = theaterRepository.findById(theaterId)
                 .orElseThrow(()-> new RuntimeException("Theater Id Not Found"));
-        return theater.getShows();
+
+        List<Movie> movies = theater.getMovies();
+
+        List<Show> allShows = new ArrayList<>();
+
+        for(Movie movie : movies)
+        {
+            List<Show> shows = movie.getShows();
+
+            allShows.addAll(shows);
+        }
+
+        return allShows;
     }
 
     @Override
     public String deleteShow(Long showId,Long movieId,Long theaterId)
     {
-        Movie movie = movieRepository.findById(movieId)
-                        .orElseThrow(()-> new RuntimeException("Movie Id Not Found"));
-        movie.setShows(null);
+        Show show = showRepository.findById(showId)
+                .orElseThrow(() -> new RuntimeException("Show Id Not Found"));
 
-        Theater theater = theaterRepository.findById(theaterId)
-                        .orElseThrow(()-> new RuntimeException("Theater Id Not Found"));
+        if(!show.getMovie().getId().equals(movieId))
+        {
+            throw new RuntimeException("Movie Id Not Found");
+        }
 
-        theater.setShows(null);
+        else if(!show.getTheater().getId().equals(theaterId))
+        {
+            throw new RuntimeException("Theater Id Not Found");
+        }
+
+        showSeatRepository.deleteAll(show.getShowSeats());
 
         showRepository.deleteById(showId);
 

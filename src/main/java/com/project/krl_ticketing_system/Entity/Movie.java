@@ -34,4 +34,13 @@ public class Movie {
     @OneToMany(mappedBy = "movie")
     private List<Show> shows;
 
+//    spring.application.name=krl_ticketing_system
+//    spring.datasource.url=jdbc:mysql://localhost:3306/ticket_db
+//    spring.datasource.username=root
+//    spring.datasource.password=root
+//    spring.jpa.show-sql=true
+//    spring.jpa.hibernate.ddl-auto=create
+//    spring.jpa.properties.hibernate.format_sql=true
+//    server.port=8088
+
 }

@@ -26,7 +26,7 @@ public class MovieController {
         return movieService.getMovieByTheater(theaterId);
     }
 
-    @DeleteMapping("/deleteMovie/{movieId}")
+    @DeleteMapping("/deleteMovie/{theaterId}/{movieId}")
     public String deleteMovie(@PathVariable Long theaterId,@PathVariable Long movieId)
     {
         return movieService.deleteMovieByTheater(theaterId,movieId);
