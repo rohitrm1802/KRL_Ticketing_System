@@ -14,7 +14,7 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
-    @PostMapping("/addLocation")
+    @PostMapping("/addLocation/{location}")
     public String addLocation(@PathVariable String location)
     {
         return locationService.addLocation(location);

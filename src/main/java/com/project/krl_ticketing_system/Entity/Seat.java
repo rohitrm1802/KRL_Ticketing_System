@@ -1,5 +1,6 @@
 package com.project.krl_ticketing_system.Entity;
 
+import com.project.krl_ticketing_system.Enum.SeatType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class Seat {
     private Integer rowNo;
 
     @Enumerated(EnumType.STRING)
-    private String seatType;
+    private SeatType seatType;
 
     @ManyToOne
     @JoinColumn(name = "theater_id")

@@ -17,7 +17,7 @@ public class TheaterController {
 
     private final TheaterService theaterService;
 
-    @PostMapping("/addTheater")
+    @PostMapping("/addTheater/{locationId}")
     public ResponseEntity<?> add(@RequestBody Theater theater,@PathVariable Long locationId)
     {
         theaterService.addTheater(theater,locationId);
