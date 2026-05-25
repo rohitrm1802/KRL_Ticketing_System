@@ -1,5 +1,6 @@
 package com.project.krl_ticketing_system.ServiceImpl;
 
+import com.project.krl_ticketing_system.DTO.SeatBook;
 import com.project.krl_ticketing_system.Entity.*;
 import com.project.krl_ticketing_system.Enum.SeatType;
 import com.project.krl_ticketing_system.Repository.*;
@@ -121,5 +122,17 @@ public class ShowServiceImpl implements ShowService
         showRepository.deleteById(showId);
 
         return "Show Successfully Deleted";
+    }
+
+    public ShowSeat bookSeat(SeatBook seatBook)
+    {
+        ShowSeat showSeat = new ShowSeat();
+
+        List<ShowSeat> showSeats = showSeat.getSeat().getShowSeats();
+
+        for(ShowSeat s1 = showSeats)
+        {
+
+        }
     }
 }
