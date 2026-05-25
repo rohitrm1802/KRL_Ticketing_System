@@ -14,7 +14,7 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
-    @PostMapping("/addLocation")
+    @PostMapping("/addLocation/{location}")
     public String addLocation(@PathVariable String location)
     {
         return locationService.addLocation(location);
@@ -26,7 +26,7 @@ public class LocationController {
         return locationService.getAllLocation();
     }
 
-    @DeleteMapping("/deleteLocation")
+    @DeleteMapping("/deleteLocation/{locationId}")
     public String deleteLocation(@PathVariable Long locationId)
     {
         return locationService.deleteLocation(locationId);

@@ -1,5 +1,6 @@
 package com.project.krl_ticketing_system.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
