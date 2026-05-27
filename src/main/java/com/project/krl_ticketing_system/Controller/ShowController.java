@@ -1,5 +1,6 @@
 package com.project.krl_ticketing_system.Controller;
 
+import com.project.krl_ticketing_system.DTO.SeatBook;
 import com.project.krl_ticketing_system.Entity.Show;
 import com.project.krl_ticketing_system.Service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,10 @@ public class ShowController {
                             ,@PathVariable Long theaterId)
     {
         return showService.deleteShow(showId,movieId,theaterId);
+    }
+    @PostMapping("/bookSeat/{showId}")
+    public String bookSeat(@RequestBody SeatBook seatBook, @PathVariable Long showId)
+    {
+        return showService.bookSeat(seatBook,showId);
     }
 }

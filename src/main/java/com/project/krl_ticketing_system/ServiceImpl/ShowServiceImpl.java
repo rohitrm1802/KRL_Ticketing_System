@@ -124,6 +124,7 @@ public class ShowServiceImpl implements ShowService
         return "Show Successfully Deleted";
     }
 
+    @Override
     public String bookSeat(SeatBook seatBook,Long showId)
     {
 
