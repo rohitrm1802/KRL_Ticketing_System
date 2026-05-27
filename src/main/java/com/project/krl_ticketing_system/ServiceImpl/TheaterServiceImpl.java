@@ -77,7 +77,7 @@ public class TheaterServiceImpl implements TheaterService {
     {
         for(char i = 'A'; i <= 'C'; i++)
         {
-            for(int j = 1; j <= 3; j++) {
+            for(int j = 1; j <= 2; j++) {
 
                 Seat seat = new Seat();
 
