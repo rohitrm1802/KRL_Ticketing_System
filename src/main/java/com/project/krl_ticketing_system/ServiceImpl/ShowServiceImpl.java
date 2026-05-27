@@ -124,15 +124,34 @@ public class ShowServiceImpl implements ShowService
         return "Show Successfully Deleted";
     }
 
-    public ShowSeat bookSeat(SeatBook seatBook)
+    public String bookSeat(SeatBook seatBook,Long showId)
     {
-        ShowSeat showSeat = new ShowSeat();
 
-        List<ShowSeat> showSeats = showSeat.getSeat().getShowSeats();
+        Show show = showRepository.findById(showId)
+                .orElseThrow(()-> new RuntimeException("Show Not Found"));
 
-        for(ShowSeat s1 = showSeats)
+        List<ShowSeat> showSeats = show.getShowSeats();
+
+        for(ShowSeat s1 : showSeats)
         {
+            if(s1.getRowNum() == seatBook.getRowNum()
+                                        && s1.getSeatNum() == seatBook.getSeatNum())
+            {
+                seatBook.setFound(true);
 
+                if(s1.isBooked())
+                    throw new RuntimeException("Seat Is Already Booked");
+                else
+                {
+                    s1.setBooked(true);
+                    showSeatRepository.save(s1);
+                }
+            }
         }
+        if(!seatBook.isFound())
+            throw new RuntimeException("Invalid Seat Number");
+
+        return "Seat Booked Successfully";
+
     }
 }
