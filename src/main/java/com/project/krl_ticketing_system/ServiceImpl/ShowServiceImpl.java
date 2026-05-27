@@ -49,6 +49,9 @@ public class ShowServiceImpl implements ShowService
 
             showSeat.setSeat(seat);
 
+            showSeat.setRowNum(seat.getRowNum());
+            showSeat.setSeatNum(seat.getSeatNum());
+
             showSeat.setShow(show);
 
             if(seat.getSeatType() == SeatType.PLATINUM)
