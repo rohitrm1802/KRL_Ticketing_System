@@ -1,5 +1,6 @@
 package com.project.krl_ticketing_system.ServiceImpl;
 
+import com.project.krl_ticketing_system.DTO.SeatBook;
 import com.project.krl_ticketing_system.Entity.*;
 import com.project.krl_ticketing_system.Enum.SeatType;
 import com.project.krl_ticketing_system.Repository.*;
@@ -121,5 +122,36 @@ public class ShowServiceImpl implements ShowService
         showRepository.deleteById(showId);
 
         return "Show Successfully Deleted";
+    }
+
+    public String bookSeat(SeatBook seatBook,Long showId)
+    {
+
+        Show show = showRepository.findById(showId)
+                .orElseThrow(()-> new RuntimeException("Show Not Found"));
+
+        List<ShowSeat> showSeats = show.getShowSeats();
+
+        for(ShowSeat s1 : showSeats)
+        {
+            if(s1.getRowNum() == seatBook.getRowNum()
+                                        && s1.getSeatNum() == seatBook.getSeatNum())
+            {
+                seatBook.setFound(true);
+
+                if(s1.isBooked())
+                    throw new RuntimeException("Seat Is Already Booked");
+                else
+                {
+                    s1.setBooked(true);
+                    showSeatRepository.save(s1);
+                }
+            }
+        }
+        if(!seatBook.isFound())
+            throw new RuntimeException("Invalid Seat Number");
+
+        return "Seat Booked Successfully";
+
     }
 }

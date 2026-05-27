@@ -9,6 +9,5 @@ import java.util.Optional;
 @Repository
 public interface TheaterRepository  extends JpaRepository<Theater,Long> {
 
-    Optional<Theater> findByMovieId(Long movieId);
 
 }

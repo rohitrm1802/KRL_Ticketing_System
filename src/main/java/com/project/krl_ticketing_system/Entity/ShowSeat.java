@@ -18,6 +18,10 @@ public class ShowSeat {
 
     private boolean booked;
 
+    private char rowNum;
+
+    private int seatNum;
+
     @ManyToOne
     @JoinColumn(name = "show_id")
     @JsonIgnore
