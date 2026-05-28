@@ -75,9 +75,11 @@ public class TheaterServiceImpl implements TheaterService {
     @Override
     public void generateSeats(Theater theater)
     {
-        for(char i = 'A'; i <= 'C'; i++)
+        Seat seat1 = new Seat();
+
+        for(char i = 'A'; i <= seat1.getRowNum(); i++)
         {
-            for(int j = 1; j <= 3; j++) {
+            for(int j = 1; j <= seat1.getSeatNum(); j++) {
 
                 Seat seat = new Seat();
 
